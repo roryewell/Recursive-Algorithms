@@ -20,8 +20,18 @@
 // Write a recursive method called countVowels that returns the number of vowels in a given String
 // countVowels('abcedfg') ->2
 
-var countVowels = function(str){
-
+var countVowels = (str, ...args) => {
+  var characterIndex = args[0] || 0;
+  var vowelCount = args[1] || 0;
+  var vowels = ['a', 'e', 'i', 'o', 'u'];
+  if (characterIndex >= str.length) {
+    return vowelCount;
+  } else {
+    if (vowels.indexOf(str[characterIndex]) !== -1) {
+      vowelCount++;
+    }
+    return countVowels(str, ++characterIndex, vowelCount);
+  }
 };
 
 ///////////////////////////////////////////////////////////////////////
@@ -34,8 +44,15 @@ var countVowels = function(str){
 // sumDigits(49) → 13
 // sumDigits(12) → 3
 
-var recursiveSum = function(n){
-
+var recursiveSum = function(n) {
+  var digitIndex = arguments[1] || 0;
+  var sum = arguments[2] || 0;
+  if (digitIndex >= n.toString().length) {
+    return sum;
+  } else {
+    sum += Number(n.toString()[digitIndex]);
+    return recursiveSum(n, ++digitIndex, sum);
+  }
 };
 
 ///////////////////////////////////////////////////////////////////////
@@ -48,7 +65,13 @@ var recursiveSum = function(n){
 // PowerOfTwo(9) -> false
 
 var isPowerOfTwo = function(n){
-
+  if (n === 0) {
+    return false;
+  } else if (n === 1) {
+    return true;
+  } else {
+    return isPowerOfTwo(n / 2);
+  }
 };
 
 ///////////////////////////////////////////////////////////////////////
